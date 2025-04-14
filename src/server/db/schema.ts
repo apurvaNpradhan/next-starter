@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { index, pgTableCreator, primaryKey } from "drizzle-orm/pg-core";
+import { index, pgTableCreator, primaryKey, uuid } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**
@@ -13,12 +13,10 @@ export const createTable = pgTableCreator((name) => `next-starter_${name}`);
 export const posts = createTable(
   "post",
   (d) => ({
-    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+    id: uuid("id").primaryKey().defaultRandom(),
     name: d.varchar({ length: 256 }),
-    createdById: d
-      .varchar({ length: 255 })
-      .notNull()
-      .references(() => users.id),
+    createdById: uuid("created_by_id")
+      .notNull().references(() => users.id),
     createdAt: d
       .timestamp({ withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
@@ -32,11 +30,7 @@ export const posts = createTable(
 );
 
 export const users = createTable("user", (d) => ({
-  id: d
-    .varchar({ length: 255 })
-    .notNull()
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+  id: uuid("id").primaryKey().defaultRandom(),
   name: d.varchar({ length: 255 }),
   email: d.varchar({ length: 255 }).notNull(),
   emailVerified: d
@@ -48,21 +42,17 @@ export const users = createTable("user", (d) => ({
   image: d.varchar({ length: 255 }),
 }));
 
-export const usersRelations = relations(users, ({ many }) => ({
-  accounts: many(accounts),
-}));
-
 export const accounts = createTable(
   "account",
   (d) => ({
-    userId: d
-      .varchar({ length: 255 })
+    userId: uuid("user_id")
       .notNull()
       .references(() => users.id),
     type: d.varchar({ length: 255 }).$type<AdapterAccount["type"]>().notNull(),
     provider: d.varchar({ length: 255 }).notNull(),
     providerAccountId: d.varchar({ length: 255 }).notNull(),
     refresh_token: d.text(),
+    refresh_token_expires_in: d.integer(),
     access_token: d.text(),
     expires_at: d.integer(),
     token_type: d.varchar({ length: 255 }),
@@ -76,26 +66,17 @@ export const accounts = createTable(
   ],
 );
 
-export const accountsRelations = relations(accounts, ({ one }) => ({
-  user: one(users, { fields: [accounts.userId], references: [users.id] }),
-}));
-
 export const sessions = createTable(
   "session",
   (d) => ({
     sessionToken: d.varchar({ length: 255 }).notNull().primaryKey(),
-    userId: d
-      .varchar({ length: 255 })
+    userId: uuid("user_id")
       .notNull()
       .references(() => users.id),
     expires: d.timestamp({ mode: "date", withTimezone: true }).notNull(),
   }),
   (t) => [index("t_user_id_idx").on(t.userId)],
 );
-
-export const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, { fields: [sessions.userId], references: [users.id] }),
-}));
 
 export const verificationTokens = createTable(
   "verification_token",
@@ -106,3 +87,31 @@ export const verificationTokens = createTable(
   }),
   (t) => [primaryKey({ columns: [t.identifier, t.token] })],
 );
+
+
+export const postsRelations = relations(posts, ({ one }) => ({
+  user: one(users, {
+    fields: [posts.createdById],
+    references: [users.id],
+  }),
+}));
+export const usersRelations = relations(users, ({ many }) => ({
+  posts: many(posts),
+  accounts: many(accounts),
+  sessions: many(sessions),
+}))
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}));
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}));
+
+export type InsertPost = typeof posts.$inferInsert;
+export type SelectPost = typeof posts.$inferSelect;

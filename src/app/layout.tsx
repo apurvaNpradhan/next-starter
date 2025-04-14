@@ -1,5 +1,6 @@
 import Header from "@/components/ui/header";
 import RootProvider from "@/providers";
+// eslint-disable-next-line boundaries/no-unknown
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import { type Metadata } from "next";
