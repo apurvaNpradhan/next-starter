@@ -1,3 +1,4 @@
+import RootProvider from "@/providers";
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
@@ -18,8 +19,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
+      <body className="antialiased min-h-screen ">
+
+        <RootProvider>
+
+          {children}
+        </RootProvider>
+      </body>
     </html>
   );
 }

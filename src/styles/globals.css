@@ -1,6 +1,152 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.98 0.02 160);
+  /* Soft white with a hint of green */
+  --foreground: oklch(0.30 0.05 160);
+  /* Dark green-gray for text */
+  --card: oklch(0.99 0.015 160);
+  /* Slightly greener off-white */
+  --card-foreground: oklch(0.30 0.05 160);
+  --popover: oklch(0.99 0.015 160);
+  --popover-foreground: oklch(0.30 0.05 160);
+  --primary: oklch(0.65 0.12 160);
+  /* Vibrant green for primary actions */
+  --primary-foreground: oklch(0.98 0.01 160);
+  --secondary: oklch(0.95 0.03 160);
+  /* Pale green for secondary elements */
+  --secondary-foreground: oklch(0.35 0.06 160);
+  --muted: oklch(0.96 0.02 160);
+  /* Subtle green for muted backgrounds */
+  --muted-foreground: oklch(0.50 0.07 160);
+  /* Mid-tone green for muted text */
+  --accent: oklch(0.92 0.04 160);
+  /* Light green accent */
+  --accent-foreground: oklch(0.35 0.06 160);
+  --destructive: oklch(0.60 0.20 20);
+  /* Red for destructive actions, kept distinct */
+  --border: oklch(0.94 0.03 160);
+  /* Light green-gray border */
+  --input: oklch(0.94 0.03 160);
+  --ring: oklch(0.70 0.10 160);
+  /* Green focus ring */
+  --chart-1: oklch(0.70 0.12 160);
+  /* Green for charts */
+  --chart-2: oklch(0.65 0.10 170);
+  /* Slightly different green shade */
+  --chart-3: oklch(0.60 0.09 180);
+  /* Another green variant */
+  --chart-4: oklch(0.75 0.11 150);
+  /* Complementary green */
+  --chart-5: oklch(0.68 0.13 165);
+  --sidebar: oklch(0.99 0.015 160);
+  --sidebar-foreground: oklch(0.30 0.05 160);
+  --sidebar-primary: oklch(0.65 0.12 160);
+  --sidebar-primary-foreground: oklch(0.98 0.01 160);
+  --sidebar-accent: oklch(0.92 0.04 160);
+  --sidebar-accent-foreground: oklch(0.35 0.06 160);
+  --sidebar-border: oklch(0.94 0.03 160);
+  --sidebar-ring: oklch(0.70 0.10 160);
+}
+
+.dark {
+  --background: oklch(0.10 0.05 160);
+  /* Deep green-black */
+  --foreground: oklch(0.90 0.03 160);
+  /* Light green for text */
+  --card: oklch(0.15 0.06 160);
+  /* Darker green for cards */
+  --card-foreground: oklch(0.90 0.03 160);
+  --popover: oklch(0.25 0.06 160);
+  --popover-foreground: oklch(0.90 0.03 160);
+  --primary: oklch(0.60 0.14 160);
+  /* Bright green for primary actions */
+  --primary-foreground: oklch(0.20 0.05 160);
+  --secondary: oklch(0.30 0.07 160);
+  /* Muted dark green */
+  --secondary-foreground: oklch(0.90 0.03 160);
+  --muted: oklch(0.35 0.06 160);
+  /* Slightly lighter muted green */
+  --muted-foreground: oklch(0.65 0.10 160);
+  /* Mid-tone green for muted text */
+  --accent: oklch(0.40 0.08 160);
+  /* Subtle green accent */
+  --accent-foreground: oklch(0.90 0.03 160);
+  --destructive: oklch(0.65 0.18 20);
+  /* Brighter red for visibility */
+  --border: oklch(0.25 0.06 160 / 0.5);
+  /* Semi-transparent green border */
+  --input: oklch(0.35 0.06 160 / 0.5);
+  --ring: oklch(0.70 0.14 160);
+  /* Green focus ring */
+  --chart-1: oklch(0.70 0.14 160);
+  --chart-2: oklch(0.65 0.12 170);
+  --chart-3: oklch(0.60 0.11 180);
+  --chart-4: oklch(0.75 0.13 150);
+  --chart-5: oklch(0.68 0.15 165);
+  --sidebar: oklch(0.25 0.06 160);
+  --sidebar-foreground: oklch(0.90 0.03 160);
+  --sidebar-primary: oklch(0.70 0.14 160);
+  --sidebar-primary-foreground: oklch(0.20 0.05 160);
+  --sidebar-accent: oklch(0.40 0.08 160);
+  --sidebar-accent-foreground: oklch(0.90 0.03 160);
+  --sidebar-border: oklch(0.35 0.06 160 / 0.5);
+  --sidebar-ring: oklch(0.70 0.14 160);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
