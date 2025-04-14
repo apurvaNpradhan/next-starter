@@ -21,8 +21,7 @@ export default async function Page() {
         A simple NextJS starter
       </h1>
       <div className="mt-6 flex flex-col items-center justify-center gap-4">
-        <ModeToggle />
-        Goodies
+
       </div>
 
 

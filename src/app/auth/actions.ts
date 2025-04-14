@@ -7,6 +7,6 @@ export async function signInWithGithubAction() {
 }
 export async function signOutAction() {
   await signOut({
-    redirectTo: "/login",
+    redirectTo: "/auth/login",
   });
 }
