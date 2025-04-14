@@ -1,3 +1,4 @@
+// eslint-disable-next-line boundaries/element-types
 import { signOutAction } from "@/app/auth/actions";
 import { Button } from "./button";
 

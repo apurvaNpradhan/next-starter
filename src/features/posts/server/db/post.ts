@@ -29,13 +29,11 @@ async function updatePost(data: Partial<typeof posts.$inferInsert>, { id, userId
 }
 async function deletePost(id: string, userId: string) {
   const deletedPost = await db.delete(posts).where(and(eq(posts.id, id), eq(posts.createdById, userId)))
-  if (deletedPost.length > 0) {
-    revalidateDbCache({
-      tag: CACHE_TAGS.posts,
-      id,
-      userId,
-    })
-  }
+  revalidateDbCache({
+    tag: CACHE_TAGS.posts,
+    id,
+    userId,
+  })
   return deletedPost.length > 0
 }
 async function getPosts(userId: string, limit?: number) {

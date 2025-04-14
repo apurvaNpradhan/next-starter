@@ -8,11 +8,11 @@ export default async function Page() {
     <div className="flex flex-col min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       {
         session?.user ? (
-          <h1 className="text-xl font-bold tracking-tight text-center ">
+          <h1 className="text-xl  tracking-tight text-center ">
             Welcome {session.user.name}
           </h1>
         ) : (
-          <h1 className="text-xl font-bold tracking-tight text-center ">
+          <h1 className="text-xl tracking-tight text-center ">
             You are not logged in
           </h1>
         )
