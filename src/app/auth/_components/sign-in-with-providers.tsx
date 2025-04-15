@@ -22,13 +22,13 @@ export default function SignInWithProviders() {
   }
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md shadow-none ">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">Sign in</CardTitle>
           <CardDescription>Choose your preferred sign in method</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button variant="outline" onClick={handleSignInWithGithub} disabled={isLoading} className="w-full">
+          <Button onClick={handleSignInWithGithub} disabled={isLoading} className="w-full">
             {isLoading ? (
               <span className="flex items-center justify-center">
                 <svg
@@ -54,11 +54,7 @@ export default function SignInWithProviders() {
             )}
           </Button>
         </CardContent>
-        <CardFooter className="flex justify-center">
-          <p className="text-sm text-muted-foreground">
-            By signing in, you agree to our Terms of Service and Privacy Policy
-          </p>
-        </CardFooter>
+
       </Card>
     </div>
   )

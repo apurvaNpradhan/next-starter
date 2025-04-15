@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import type { SelectPost } from "@/server/db/schema";
 import PostDetailsForm from "./form/post-details";
 import {
@@ -42,20 +42,20 @@ export function PostsPageContent({
   userId: string;
 }) {
   const [dialog, setDialog] = useState(false);
-  const [isDeletePending, startDeleteTransition] = useTransition()
+  const [isDeletePending, startDeleteTransition] = useTransition();
   return (
-
-    <div className="container mx-auto space-y-6 py-6">
-      <h1 className="text-3xl font-bold text-primary">Your Posts</h1>
+    <div>
       <PostDetailsForm />
-      <div className="space-y-4">
+      <div className="space-y-1">
         {posts.length > 0 ? (
           posts.map((post) => (
             <div
               key={post.id}
-              className="px-2 py-1 flex justify-between items-center"
+              className="hover:bg-accent/50 flex items-center justify-between rounded-md px-2 py-1 transition-colors"
             >
-              <h2 className="text-lg font-medium text-foreground">{post.name}</h2>
+              <h2 className="text-foreground text-lg font-medium">
+                {post.name}
+              </h2>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost">
@@ -78,11 +78,14 @@ export function PostsPageContent({
                       <DialogHeader>
                         <DialogTitle>Edit Post</DialogTitle>
                         <DialogDescription>
-                          Make changes to your post here. Click save when you&apos;re
-                          done.
+                          Make changes to your post here. Click save when
+                          you&apos;re done.
                         </DialogDescription>
                       </DialogHeader>
-                      <PostDetailsForm post={post} onSuccess={() => setDialog(false)} />
+                      <PostDetailsForm
+                        post={post}
+                        onSuccess={() => setDialog(false)}
+                      />
                     </DialogContent>
                   </Dialog>
                   <DropdownMenuSeparator />
@@ -92,7 +95,10 @@ export function PostsPageContent({
                         onSelect={(e) => e.preventDefault()}
                         asChild
                       >
-                        <Button variant={"ghost"} className="w-full text-destructive">
+                        <Button
+                          variant={"ghost"}
+                          className="text-destructive w-full"
+                        >
                           Delete
                         </Button>
                       </DropdownMenuItem>
@@ -102,7 +108,9 @@ export function PostsPageContent({
                       <AlertDialogHeader>
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          This action cannot be undone. This will permanently delete <span className="font-semibold">{post.name}</span>
+                          This action cannot be undone. This will permanently
+                          delete{" "}
+                          <span className="font-semibold">{post.name}</span>
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -110,12 +118,11 @@ export function PostsPageContent({
                         <AlertDialogAction
                           onClick={() => {
                             startDeleteTransition(async () => {
-                              const data = await deletePost(post.id, userId)
+                              const data = await deletePost(post.id, userId);
                               if (data) {
-                                toast.success("Post deleted")
-
+                                toast.success("Post deleted");
                               }
-                            })
+                            });
                           }}
                           disabled={isDeletePending}
                         >
@@ -123,7 +130,6 @@ export function PostsPageContent({
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
-
                   </AlertDialog>
                 </DropdownMenuContent>
               </DropdownMenu>

@@ -1,11 +1,7 @@
 import type { ReactNode } from "react";
 import { ThemeProvider } from "./theme";
 
-export default function RootProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootProvider({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider
       attribute="class"
@@ -13,7 +9,8 @@ export default function RootProvider({
       enableSystem
       enableColorScheme
       disableTransitionOnChange
-    >{children}</ThemeProvider>
+    >
+      {children}
+    </ThemeProvider>
   );
 }
-
