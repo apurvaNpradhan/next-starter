@@ -1,4 +1,4 @@
-import SignInWithProviders from "../_components/sign-in-with-providers";
+import SignInWithProviders from '@/features/auth/components/sign-in-with-providers'
 
 export default function Login() {
   return (

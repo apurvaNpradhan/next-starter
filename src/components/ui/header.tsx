@@ -1,16 +1,16 @@
-import Link from "next/link";
-import { MenuIcon } from "lucide-react";
-import { auth } from "@/server/auth";
-import { ModeToggle } from "./theme-toggle";
-import { Button } from "./button";
-import SignOutButton from "./auth-button";
-import { Avatar, AvatarImage } from "./avatar";
+import Link from 'next/link'
+import { MenuIcon } from 'lucide-react'
+import { auth } from '@/server/auth'
+import { ModeToggle } from './theme-toggle'
+import { Button } from './button'
+import SignOutButton from './auth-button'
+import { Avatar, AvatarImage } from './avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from './dropdown-menu'
 import {
   Drawer,
   DrawerContent,
@@ -18,17 +18,17 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./drawer";
-import { NavigationMenu, NavigationMenuItem } from "./navigation-menu";
-import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
-import SiteNavItem from "./site-nav-items";
+} from './drawer'
+import { NavigationMenu, NavigationMenuItem } from './navigation-menu'
+import { NavigationMenuLink } from '@radix-ui/react-navigation-menu'
+import SiteNavItem from './site-nav-items'
 
 export default async function Header() {
-  const session = await auth();
+  const session = await auth()
   const navItems = [
-    { title: "Home", href: "/" },
-    { title: "Posts", href: "/posts" },
-  ];
+    { title: 'Home', href: '/' },
+    { title: 'Posts', href: '/posts' },
+  ]
 
   return (
     <div className="flex w-full flex-row items-center justify-between border-b px-3 py-1">
@@ -54,7 +54,7 @@ export default async function Header() {
             <DropdownMenuTrigger asChild>
               <Avatar className="h-8 w-8 rounded-full">
                 <AvatarImage
-                  src={session.user.image ?? ""}
+                  src={session.user.image ?? ''}
                   alt={`${session.user.name}'s avatar`}
                 />
               </Avatar>
@@ -95,7 +95,7 @@ export default async function Header() {
               <div className="flex flex-col items-center gap-2">
                 <Avatar className="h-8 w-8 rounded-full">
                   <AvatarImage
-                    src={session.user.image ?? ""}
+                    src={session.user.image ?? ''}
                     alt={`${session.user.name}'s avatar`}
                   />
                 </Avatar>
@@ -131,5 +131,5 @@ export default async function Header() {
         </DrawerContent>
       </Drawer>
     </div>
-  );
+  )
 }

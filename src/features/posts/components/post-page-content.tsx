@@ -1,6 +1,6 @@
-"use client";
-import type { SelectPost } from "@/server/db/schema";
-import PostDetailsForm from "./form/post-details";
+'use client'
+import type { SelectPost } from '@/server/db/schema'
+import PostDetailsForm from './form/post-details'
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog'
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -19,30 +19,30 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Ellipsis } from "lucide-react";
-import { DeletePostAlertDialogContent } from "./delete-post-alert-dialog-content";
-import { useState, useTransition } from "react";
-import { toast } from "sonner";
-import { deletePost } from "../server/actions/posts";
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import { Ellipsis } from 'lucide-react'
+import { DeletePostAlertDialogContent } from './delete-post-alert-dialog-content'
+import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
+import { deletePost } from '../server/actions/posts'
 
 export function PostsPageContent({
   posts,
   userId,
 }: {
-  posts: SelectPost[];
-  userId: string;
+  posts: SelectPost[]
+  userId: string
 }) {
-  const [dialog, setDialog] = useState(false);
-  const [isDeletePending, startDeleteTransition] = useTransition();
+  const [dialog, setDialog] = useState(false)
+  const [isDeletePending, startDeleteTransition] = useTransition()
   return (
     <div>
       <PostDetailsForm />
@@ -96,7 +96,7 @@ export function PostsPageContent({
                         asChild
                       >
                         <Button
-                          variant={"ghost"}
+                          variant={'ghost'}
                           className="text-destructive w-full"
                         >
                           Delete
@@ -109,7 +109,7 @@ export function PostsPageContent({
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
                           This action cannot be undone. This will permanently
-                          delete{" "}
+                          delete{' '}
                           <span className="font-semibold">{post.name}</span>
                         </AlertDialogDescription>
                       </AlertDialogHeader>
@@ -118,11 +118,11 @@ export function PostsPageContent({
                         <AlertDialogAction
                           onClick={() => {
                             startDeleteTransition(async () => {
-                              const data = await deletePost(post.id, userId);
+                              const data = await deletePost(post.id, userId)
                               if (data) {
-                                toast.success("Post deleted");
+                                toast.success('Post deleted')
                               }
-                            });
+                            })
                           }}
                           disabled={isDeletePending}
                         >
@@ -140,5 +140,5 @@ export function PostsPageContent({
         )}
       </div>
     </div>
-  );
+  )
 }

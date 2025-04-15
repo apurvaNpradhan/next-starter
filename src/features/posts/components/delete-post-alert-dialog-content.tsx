@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -7,12 +7,20 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { useTransition } from "react"
-import { toast } from "sonner"
-import { deletePost } from "../server/actions/posts"
+} from '@/components/ui/alert-dialog'
+import { useTransition } from 'react'
+import { toast } from 'sonner'
+import { deletePost } from '../server/actions/posts'
 
-export function DeletePostAlertDialogContent({ id, userId, name }: { id: string, userId: string, name: string }) {
+export function DeletePostAlertDialogContent({
+  id,
+  userId,
+  name,
+}: {
+  id: string
+  userId: string
+  name: string
+}) {
   const [isDeletePending, startDeleteTransition] = useTransition()
 
   return (
@@ -20,7 +28,8 @@ export function DeletePostAlertDialogContent({ id, userId, name }: { id: string,
       <AlertDialogHeader>
         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
         <AlertDialogDescription>
-          This action cannot be undone. This will permanently delete <span className="font-semibold">{name}</span>
+          This action cannot be undone. This will permanently delete{' '}
+          <span className="font-semibold">{name}</span>
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
@@ -30,8 +39,7 @@ export function DeletePostAlertDialogContent({ id, userId, name }: { id: string,
             startDeleteTransition(async () => {
               const data = await deletePost(id, userId)
               if (data) {
-                toast.success("Post deleted")
-
+                toast.success('Post deleted')
               }
             })
           }}
